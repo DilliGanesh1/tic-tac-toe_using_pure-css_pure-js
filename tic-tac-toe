@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="display: flex; justify-content: center;">
+    <div>
+        <h1>Tic Tac Toe</h1>
+        </br>
+        <div id="tic">
+        </div>
+        <br>
+        <br>
+        <br>
+        <div>
+            Result: &nbsp;<span id="res"></span>
+        </div>
+    </div>
+    <script>
+        var crntusr = 0;
+        var usr1 = "x";
+        var usr2 = "o";
+        var maindiv = document.getElementById("tic");
+        for (i = 1; i <= 3; i++) {
+            var indiv = document.createElement("div");
+            indiv.setAttribute("id", "div" + i);
+            indiv.style.cssText = "display:flex;";
+
+            maindiv.append(indiv);
+            for (j = 1; j <= 3; j++) {
+                var k = document.createElement("div");
+                k.setAttribute("id", "div" + i + j)
+                k.setAttribute("onclick", "funonclk(" + crntusr + ", " + i + ", " + j + ")");
+                k.style.cssText = "border: 1px solid black;height: 50px; width: 50px;display: flex; justify-content: center;font-size:40px";
+                indiv.append(k);
+            }
+        }
+        function funonclk(crtusr, i, j) {
+            console.log(i, j)
+            var changeval = document.getElementById('div' + i + j);
+            changeval.innerHTML = (crntusr % 2 == 0) ? usr1 : usr2;
+            val();
+            crntusr += 1;
+        }
+        function val() {
+            for (i = 1; i <= 3; i++) {
+                var arrrow = [];
+                var arrcol = [];
+                var arrcrossx = [];
+                var arrcrossy = [];
+
+                for (j = 1; j <= 3; j++) {
+                    console.log("div" + i + j)
+                    arrrow[j - 1] = (document.getElementById("div" + i + j).textContent) ? document.getElementById("div" + i + j).textContent : '';
+                    arrcol[j - 1] = (document.getElementById("div" + j + i).textContent) ? document.getElementById("div" + j + i).textContent : '';
+
+                }
+                if (arrrow.every((val, i, arrrow) => val === arrrow[0]) && arrrow.every((val, i, arrrow) => val != '')) {
+                    for (j = 1; j <= 3; j++) {
+                        document.getElementById("div" + i + j).style.cssText = "border: 1px solid black;height: 50px; width: 50px;display: flex; justify-content: center;font-size:40px;color:green;background-color:#90EE90;";
+                    }
+                    document.getElementById("res").innerHTML = "<b>" + ((crntusr % 2 == 0) ? usr1 : usr2) + " won the match</b>";
+                    document.getElementById("tic").style.cssText = "pointer-events:none;";
+                }
+                if (arrcol.every((val, i, arrcol) => val === arrcol[0]) && arrcol.every((val, i, arrcol) => val != '')) {
+                    for (j = 1; j <= 3; j++) {
+                        document.getElementById("div" + j + i).style.cssText = "border: 1px solid black;height: 50px; width: 50px;display: flex; justify-content: center;font-size:40px;color:green;background-color:#90EE90";
+                    }
+                    document.getElementById("res").innerHTML = "<b>" + ((crntusr % 2 == 0) ? usr1 : usr2) + " won the match</b>";
+                    document.getElementById("tic").style.cssText = "pointer-events:none;";
+                }
+                console.log(arrrow);
+                console.log(arrcol);
+            }
+            var tmp = 3;
+            for (i = 1; i <= 3; i++) {
+                arrcrossx[i - 1] = (document.getElementById("div" + i + i).textContent) ? document.getElementById("div" + i + i).textContent : '';
+                arrcrossy[i - 1] = (document.getElementById("div" + tmp + i).textContent) ? document.getElementById("div" + tmp + i).textContent : '';
+                tmp -= 1;
+            }
+            console.log("ctrossx", arrcrossx);
+            console.log("ctrossx", arrcrossy);
+            if (arrcrossx.every((val, i, arrcrossx) => val === arrcrossx[0]) && arrcrossx.every((val, i, arrcrossx) => val != '')) {
+                for (i = 1; i <= 3; i++) {
+                    document.getElementById("div" + i + i).style.cssText = "border: 1px solid black;height: 50px; width: 50px;display: flex; justify-content: center;font-size:40px;color:green;background-color:#90EE90";
+                }
+                document.getElementById("res").innerHTML = "<b>" + ((crntusr % 2 == 0) ? usr1 : usr2) + " won the match</b>";
+                document.getElementById("tic").style.cssText = "pointer-events:none;";
+            }
+            if (arrcrossy.every((val, i, arrcrossy) => val === arrcrossy[0]) && arrcrossy.every((val, i, arrcrossy) => val != '')) {
+                var tmpi = 3;
+                for (i = 1; i <= 3; i++) {
+                    document.getElementById("div" + tmpi + i).style.cssText = "border: 1px solid black;height: 50px; width: 50px;display: flex; justify-content: center;font-size:40px;color:green;background-color:#90EE90";
+                    tmpi -= 1;
+                }
+                document.getElementById("res").innerHTML = "<b>" + ((crntusr % 2 == 0) ? usr1 : usr2) + " won the match</b>";
+                document.getElementById("tic").style.cssText = "pointer-events:none;";
+            }
+        }
+    </script>
+</body>
+
+</html>
